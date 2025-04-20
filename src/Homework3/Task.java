@@ -12,36 +12,86 @@ public class Task {
         int[] mass = new int[massSize];
         for (int i = 0; i < massSize; i++) {
             mass[i] = (int) (Math.random() * 100);
-        } //Создаем массив и заполняем случайными значениями
+        }
 
-        System.out.println(Arrays.toString(mass));
-        Arrays.sort(mass); //Соритровка по возрастанию
-        System.out.println(Arrays.toString(mass));
+        System.out.println("Исходный массив: " + Arrays.toString(mass));
 
-        int[] mass1 = Arrays.copyOf(mass, massSize); //Копия отсортированного по возрастанию массива
-        // из него буду выводить мин и макс значения массива
+        System.out.print("Массив в обратном порядке: ");
+        for (int i = massSize - 1; i >= 0; i--) {
+            System.out.print(mass[i] + " ");
+        }
+        System.out.println();
 
-        for (int i = 0; i < massSize - 1; i++) {
-            for(int j = i + 1; j < massSize; j++) {
-                if(mass[i] < mass[j]) {
-                    int temp = mass [i];
-                    mass[i] = mass[j];
-                    mass[j] = temp;
-                }
+        System.out.println();
+        int min = mass[0];
+        for (int i = 1; i < massSize; i++) {
+            if (mass[i] < min) {
+                min = mass[i];
             }
         }
-        System.out.println(Arrays.toString(mass)); // Сортировка по убыванию
+        System.out.println("Минимальное значение: " + min);
 
-        int min = mass1[0];
-        int max = mass1[massSize - 1];
+        int max = mass[0];
+        for (int i = 1; i < massSize; i++) {
+            if (mass[i] > max) {
+                max = mass[i];
+            }
+        }
+        System.out.println("Максимальное значение: " + max);
+        System.out.println();
 
-        System.out.println(min);
-        System.out.println(max); // Вывод мин и макс значений в отсортированном массиве
+        int index_min = 0;
+        for (int i = 0; i < massSize; i++) {
+            if (mass[i] == min) {
+                index_min = i;
+            }
+        }
+        System.out.print("Минимальное значение индекса: " + index_min);
+        System.out.println();
 
-        int indexMin = Arrays.binarySearch(mass1, min);
-        int indexMax = Arrays.binarySearch(mass1, max);
+        int index_max = 0;
+        for (int i = 0; i < massSize; i++) {
+            if (mass[i] == max) {
+                index_max = i;
+            }
+        }
+        System.out.print("Максимальное значение индекса: " + index_max);
+        System.out.println();
 
-        System.out.println(indexMin);
-        System.out.println(indexMax); // Вывод индексов мин и макс элементов в отсортированном массиве
+        System.out.println();
+        int nills = 0;
+        for (int i = 0; i < massSize; i++) {
+            if (mass[i] == 0) {
+                nills++;
+            }
+        }
+        if (nills > 0) {
+            System.out.println("Нулевых значений: " + nills);
+        } else {
+            System.out.println("Нулевые значения отсутствуют");
+        }
+        System.out.println();
+
+        for (int i = 0; i < massSize / 2; i++) {
+            int a = mass[i];
+            mass[i] = mass[(massSize - 1) - i];
+            mass[(massSize - 1) - i] = a;
+        }
+        System.out.println(Arrays.toString(mass));
+        System.out.println();
+
+        boolean isAscend = true;
+        for (int i = 1; i < massSize; i++) {
+            if (mass[i] <= mass[i - 1]) {
+                isAscend = false;
+                break;
+            }
+        }
+        if (isAscend) {
+            System.out.println("Массив возрастающая последовательность");
+        } else {
+            System.out.println("Массив не возрастающая последовательность");
+        }
+        scanner.close();
     }
 }
